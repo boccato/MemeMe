@@ -29,7 +29,7 @@
                                 </variation>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRz-T2-6RE">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="556" width="601" height="44"/>
                                 <items>
                                     <barButtonItem title="Album" id="XUf-gm-VBo">
                                         <connections>
@@ -44,20 +44,22 @@
                                 </items>
                             </toolbar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jP1-h1-edQ">
-                                <rect key="frame" x="284" y="40" width="32" height="17"/>
+                                <rect key="frame" x="30" y="40" width="540" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Rf-gX-xau">
-                                <rect key="frame" x="268" y="539" width="63" height="17"/>
+                                <rect key="frame" x="30" y="539" width="540" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="6Rf-gX-xau" secondAttribute="trailing" constant="10" id="34j-wh-Uut"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BX2-3B-dzk" secondAttribute="bottom" constant="44" id="5op-Gj-Ir8"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="6Rf-gX-xau" secondAttribute="bottom" constant="44" id="5ow-9I-4fR"/>
+                            <constraint firstItem="6Rf-gX-xau" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="9SV-cu-LZi"/>
                             <constraint firstItem="jP1-h1-edQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="C5o-kt-7mf"/>
                             <constraint firstAttribute="bottomMargin" secondItem="cRz-T2-6RE" secondAttribute="bottom" id="M81-7N-Wdb"/>
                             <constraint firstItem="6Rf-gX-xau" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QLh-SK-kxy"/>
@@ -65,8 +67,10 @@
                             <constraint firstItem="BX2-3B-dzk" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="RJr-YU-uRR"/>
                             <constraint firstItem="cRz-T2-6RE" firstAttribute="centerX" secondItem="6Rf-gX-xau" secondAttribute="centerX" id="dxJ-Ne-9eg"/>
                             <constraint firstItem="jP1-h1-edQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="o9H-we-RIZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jP1-h1-edQ" secondAttribute="trailing" constant="10" id="sVt-a7-iBg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BX2-3B-dzk" secondAttribute="trailing" constant="10" id="tkL-Vd-inE"/>
                             <constraint firstItem="BX2-3B-dzk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="v9X-ob-qZ6"/>
+                            <constraint firstItem="jP1-h1-edQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="wJd-uK-2ZH"/>
                         </constraints>
                     </view>
                     <connections>
