@@ -12,16 +12,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var btnCamera: UIBarButtonItem!
+    @IBOutlet weak var btnShare: UIBarButtonItem!
     @IBOutlet weak var edtBottom: UITextField!
     @IBOutlet weak var edtTop: UITextField!
     
+    @IBOutlet weak var navBar: UINavigationBar!
+    @IBOutlet weak var toolBar: UIToolbar!
+    
     var keyboardUp: Bool = false
+    var memedImage: UIImage!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         edtBottom.delegate = self
         edtTop.delegate = self
         btnCamera.enabled = UIImagePickerController.isSourceTypeAvailable(.Camera)
+        btnShare.enabled = false
         let memeTextAttributes = [
             NSStrokeColorAttributeName: UIColor.blackColor(),
             NSForegroundColorAttributeName: UIColor.whiteColor(),
@@ -33,7 +39,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         edtBottom.textAlignment = .Center
         edtTop.textAlignment = .Center
-        
         edtBottom.text = "BOTTOM"
         edtTop.text = "TOP"
     }
@@ -48,6 +53,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.unsubscribeToKeyboardNotifications()
     }
 
+    @IBAction func cancelMeme(sender: UIBarButtonItem) {
+        imagePickerView.image = nil
+        btnShare.enabled = false
+        edtBottom.text = "BOTTOM"
+        edtTop.text = "TOP"
+    }
+    
     @IBAction func pickAnImageFromAlbum(sender: UIBarButtonItem) {
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -62,9 +74,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.presentViewController(picker, animated: true, completion: nil)
     }
     
+    func save() {
+        let meme = Meme(bottom: edtBottom.text!, top: edtTop.text!,
+            image: imagePickerView.image!, memedImage: memedImage)
+    }
+    
+    @IBAction func shareMemedImage(sender: UIBarButtonItem) {
+        memedImage = generateMemedImage()
+        let ctrl = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        ctrl.completionWithItemsHandler = {(_, completed: Bool, _, _) in
+            if completed {
+                self.save()
+            }
+        }
+        self.presentViewController(ctrl, animated: true, completion: nil)
+    }
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.imagePickerView.image = image
+            imagePickerView.image = image
+            btnShare.enabled = true
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -86,16 +115,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Move the view when the keyboard covers the text field.
     func keyboardWillShow(notification: NSNotification) {
-        if edtBottom.isFirstResponder() && !self.keyboardUp {
+        if edtBottom.isFirstResponder() && !keyboardUp {
             self.view.frame.origin.y -= getKeyboardHeight(notification)
-            self.keyboardUp = true
+            keyboardUp = true
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        if self.keyboardUp {
-            self.keyboardUp = false
+        if keyboardUp {
             self.view.frame.origin.y += getKeyboardHeight(notification)
+            keyboardUp = false
         }
     }
     
@@ -111,17 +140,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func generateMemedImage() -> UIImage {
         
-        // TODO: Hide toolbar and navbar
+        // Hide toolbar and navbar
+        navBar.hidden = true
+        toolBar.hidden = true
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
-        self.view.drawViewHierarchyInRect(self.view.frame,
-            afterScreenUpdates: true)
-        let memedImage : UIImage =
-        UIGraphicsGetImageFromCurrentImageContext()
+        self.view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
+        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        // TODO:  Show toolbar and navbar
+        // Show toolbar and navbar
+        navBar.hidden = false
+        toolBar.hidden = false
         
         return memedImage
     }

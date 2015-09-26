@@ -28,12 +28,12 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jP1-h1-edQ">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jP1-h1-edQ">
                                 <rect key="frame" x="30" y="40" width="540" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Rf-gX-xau">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Rf-gX-xau">
                                 <rect key="frame" x="30" y="539" width="540" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -42,7 +42,16 @@
                                 <rect key="frame" x="0.0" y="-4" width="600" height="44"/>
                                 <items>
                                     <navigationItem id="4ZH-QT-quc">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="NGr-Vb-INv"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="NGr-Vb-INv">
+                                            <connections>
+                                                <action selector="shareMemedImage:" destination="BYZ-38-t0r" id="NVl-Re-H3f"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="BT7-fp-2gz">
+                                            <connections>
+                                                <action selector="cancelMeme:" destination="BYZ-38-t0r" id="Vwr-Ic-gon"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -89,9 +98,12 @@
                     </view>
                     <connections>
                         <outlet property="btnCamera" destination="JHT-5D-qBs" id="Koa-BG-lnw"/>
+                        <outlet property="btnShare" destination="NGr-Vb-INv" id="TeC-x0-R6l"/>
                         <outlet property="edtBottom" destination="6Rf-gX-xau" id="OfW-BP-64S"/>
                         <outlet property="edtTop" destination="jP1-h1-edQ" id="kQU-JD-bHV"/>
                         <outlet property="imagePickerView" destination="BX2-3B-dzk" id="8FH-eI-haj"/>
+                        <outlet property="navBar" destination="Rgl-0f-IuE" id="DuC-Bb-tcZ"/>
+                        <outlet property="toolBar" destination="cRz-T2-6RE" id="sQS-Ut-uGN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
