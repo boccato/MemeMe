@@ -21,57 +21,62 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     var keyboardUp: Bool = false
     var memedImage: UIImage!
+    
+    let memeTextAttributes = [
+        NSStrokeColorAttributeName: UIColor.blackColor(),
+        NSForegroundColorAttributeName: UIColor.whiteColor(),
+        NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+        NSStrokeWidthAttributeName: 4
+    ]
+    
+    func initTextField(textField: UITextField) {
+        textField.delegate = self
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .Center
+    }
+    
+    func reset() {
+        btnCamera.enabled = UIImagePickerController.isSourceTypeAvailable(.Camera)
+        btnShare.enabled = false
+        edtBottom.text = "BOTTOM"
+        edtTop.text = "TOP"
+        imagePickerView.image = nil
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        edtBottom.delegate = self
-        edtTop.delegate = self
-        btnCamera.enabled = UIImagePickerController.isSourceTypeAvailable(.Camera)
-        btnShare.enabled = false
-        let memeTextAttributes = [
-            NSStrokeColorAttributeName: UIColor.blackColor(),
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
-            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            NSStrokeWidthAttributeName: -1
-        ]
-        edtBottom.defaultTextAttributes = memeTextAttributes
-        edtTop.defaultTextAttributes = memeTextAttributes
-        
-        edtBottom.textAlignment = .Center
-        edtTop.textAlignment = .Center
-        edtBottom.text = "BOTTOM"
-        edtTop.text = "TOP"
+        initTextField(edtBottom)
+        initTextField(edtTop)
+        reset()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.subscribeToKeyboardNotifications()
+        subscribeToKeyboardNotifications()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        self.unsubscribeToKeyboardNotifications()
+        unsubscribeToKeyboardNotifications()
     }
 
     @IBAction func cancelMeme(sender: UIBarButtonItem) {
-        imagePickerView.image = nil
-        btnShare.enabled = false
-        edtBottom.text = "BOTTOM"
-        edtTop.text = "TOP"
+        reset()
+    }
+    
+    func pickAnImageFrom(sourceType: UIImagePickerControllerSourceType) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = sourceType
+        self.presentViewController(picker, animated: true, completion: nil)
     }
     
     @IBAction func pickAnImageFromAlbum(sender: UIBarButtonItem) {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .PhotoLibrary
-        self.presentViewController(picker, animated: true, completion: nil)
+        pickAnImageFrom(.PhotoLibrary)
     }
     
     @IBAction func pickAnImageFromCamera(sender: UIBarButtonItem) {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = .Camera
-        self.presentViewController(picker, animated: true, completion: nil)
+        pickAnImageFrom(.Camera)
     }
     
     func save() {
@@ -122,10 +127,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        if keyboardUp {
-            self.view.frame.origin.y += getKeyboardHeight(notification)
-            keyboardUp = false
-        }
+        self.view.frame.origin.y = 0
+        keyboardUp = false
     }
     
     func subscribeToKeyboardNotifications() {
