@@ -19,7 +19,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var toolBar: UIToolbar!
     
-    var keyboardUp: Bool = false
     var memedImage: UIImage!
     
     let memeTextAttributes = [
@@ -120,15 +119,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // Move the view when the keyboard covers the text field.
     func keyboardWillShow(notification: NSNotification) {
-        if edtBottom.isFirstResponder() && !keyboardUp {
-            self.view.frame.origin.y -= getKeyboardHeight(notification)
-            keyboardUp = true
+        if edtBottom.isFirstResponder() {
+            self.view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
         self.view.frame.origin.y = 0
-        keyboardUp = false
     }
     
     func subscribeToKeyboardNotifications() {
