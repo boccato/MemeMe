@@ -61,6 +61,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     @IBAction func cancelMeme(sender: UIBarButtonItem) {
         reset()
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func pickAnImageFrom(sourceType: UIImagePickerControllerSourceType) {
@@ -79,8 +80,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func save() {
+        // Create the meme.
         let meme = Meme(bottom: edtBottom.text!, top: edtTop.text!,
             image: imagePickerView.image!, memedImage: memedImage)
+        
+        // Add it to the memes array in the Application Delegate.
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func shareMemedImage(sender: UIBarButtonItem) {
