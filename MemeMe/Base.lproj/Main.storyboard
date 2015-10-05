@@ -83,6 +83,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="flowLayout" destination="aCC-nb-mwp" id="Y34-lk-s4q"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qbj-kC-cut" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
