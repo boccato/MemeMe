@@ -22,6 +22,13 @@ class SentMemesTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let ctrl = storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
+        ctrl.meme = memes[indexPath.row]
+        ctrl.index = indexPath.row
+        navigationController!.pushViewController(ctrl, animated: true)
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memes.count
     }
